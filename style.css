@@ -1,0 +1,99 @@
+body {
+	height: 100%;
+	width: 100%;
+	}
+header {
+	height: 50px;
+	}
+main {
+	height: 600px;
+	background: white;
+	}
+footer {
+	height: 50px;
+	text-align: center;
+    font-family: "Ariel", Ariel, sans-serif;
+    font-size: 14px;
+	}
+a.link {
+	color: black;
+	line-height: 20px;
+    text-decoration: none;
+	margin: 15px 5px;
+	display: inline-block;
+	float: left;
+    font-family: "Ariel", Ariel, sans-serif;
+    font-size: 14px;
+}
+img#g1, img#g2, img#g3 {
+	display: inline-block;
+	margin-right: 5px;
+	margin-left: 5px;
+	float: left;
+	}
+div#menu {
+	float: right;
+}
+img#g1 {
+	margin-top: 14px;
+}
+img#g2 {
+	margin-top: 12px;
+}
+img#g3 {
+	margin-top: 6px;
+}
+img#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 250px;
+}
+button.przycisk {
+    background-color: #ececec; 
+    border: #ececec;
+    padding: 10px 25px;
+    text-align: center;
+    color: grey;
+    text-decoration: none;
+    font-family: "Ariel", Ariel, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+button.przycisk:hover {
+    background-color: #f6f6f6; 
+    border: 1px solid #d7d7d7;
+    color: black;
+}
+div#search {
+    background-color: white;
+    width: 550px;
+    height: 45px;
+    border: 1px solid #CACFD2;
+    box-shadow: 1px 1px 3px #99A3A4;
+    }
+div#search:hover {
+    box-shadow: 2px 2px 7px #99A3A4;
+    }
+input[type="text"] {
+    width: 480px;
+    height: 43px;
+    display: inline-block;
+    float: left;
+    border: none;
+    padding-left: 5px;
+}
+input#search:focus {
+    outline: none;
+    }
+    
+i#icon1, i#icon2 {
+    float: left;
+    margin-right: 8px;
+    margin-left: 8px;
+    margin-top: 0px;
+    display: inline-block;
+}
+
+
