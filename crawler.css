@@ -1,0 +1,56 @@
+header {
+	height: 80px;
+    background: #fbf9f9;
+	font-size: 45px;
+    font-family: "Ariel", Ariel Black, sans-serif;
+    font-style: bold;
+	}
+div#menu {
+    height: 180px;
+    background: #fbf9f9;
+	font-size: 25px;
+    border-bottom: 1px solid lightgray;
+}
+#pole {
+    height: 30px;
+    width: 315px;
+    background-color: white; 
+    border: 2px outset #e3e2e2;
+    padding: 5px 5px;
+    font-size: 20px;
+}
+#pole:focus {
+    outline: none;
+    }
+#przycisk {
+    border: gray;
+    padding: 10px 25px;
+    text-align: center;
+    color: gray;
+    text-decoration: none;
+    font-family: "Ariel", Ariel, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    background: #ececec;
+}
+#przycisk:hover {
+    background-color: #f6f6f6; 
+    border: 1px solid #d7d7d7;
+    color: black;
+    outline: none;
+    }
+#przycisk:focus {
+    background-color: #ececec; 
+    border: 1px solid #ececec;
+    color: gray;
+    outline: none;
+    }
+.klasa {
+    font-size: 16px;
+    font-family: "Ariel", Ariel, sans-serif;
+    font: gray;
+    background-color: #ececec;
+    float: left;
+    margin: 7px;
+    border: 10px solid #ececec;
+}
