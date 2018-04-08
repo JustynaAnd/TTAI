@@ -1,57 +1,101 @@
-
-<html>
-<head>
-</head>
-<body>
-	<form action="" method="GET">
-		<input type="text" name="search">
-		<input type="submit" value="Crawl!">
-	</form>
 <?php
-	error_reporting(E_ERROR | E_PARSE);
-	
-	if(isset($_GET["search"])){
-		$url=$_GET["search"];
-		echo $url, '<br>','<br>';
-		
-		$doc = new DOMDocument();
-		//var_dump($doc);
-		
-		$doc->loadHTMLFile('http://www.zarz.agh.edu.pl/');
-		//$doc->loadHTMLFile($url);
-		//var_dump($doc);
-		
-		$tags = $doc->getElementsByTagName('a');
-		$links = [];
-		
-		foreach ($tags as $tag) {
-			$link = explode("#",$tag->getAttribute('href'));
-			//var_dump($link);
-			$link_final = $link[0];
-			//var_dump($link_final); 
-			
-			$adres1 = "http://";
-			$adres2 = "https://";
-			$start1 = substr($link_final,0,7);
-			$start2 = substr($link_final,0,8);
-			
-			if ($adres1 != $start1 and $adres2 != $start2) {
-			$link_final = $url.$link_final;
+$servername = "localhost";
+$username = "root";
+$password = ""; 
+$dbname = "Crawler";
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
+    $pageCrawlerResult = '';
+    function crawl_page($url, $depth = 5)
+    {
+        $result = '';
+        static $seen = array();
+        if (isset($seen[$url]) || $depth === 0) {
+            return;
+        }
+
+        $seen[$url] = true;
+
+        $dom = new DOMDocument('1.0');
+        @$dom->loadHTMLFile($url);
+
+        $anchors = $dom->getElementsByTagName('a');
+        $hrefArray = [];
+
+        foreach ($anchors as $element) {
+			// Remove anchors
+            $finalLink = explode("#", $element->getAttribute('href'));
+            $link = $finalLink[0];
+
+			// Add the protocol
+			$adres = substr($link, 0, 7);
+			$adresS = substr($link, 0, 8);
+
+			$protocol = 'http://';
+			$protocolS = 'https://';
+
+			if($adres != $protocol && $adresS != $protocolS){
+				//echo '<br>Brak protokolu<br><br>';
+				$link = $url.$link;
 			}
-			array_push($links, $link_final);
-			//echo $link_final, '<br>';
+
+			// Push final link to array
+            $hrefArray[] = $link;
+        }
+        $hrefArray = array_unique($hrefArray);
+
+        foreach ($hrefArray as $href) {
+            $result .= '<a href="' . $href . '">' . $href . '</a>';
+        }
+
+        return $result;
+    }
+
+    if(!empty($_GET['url'])){
+        $url = $_GET['url'];
+    }
+
+    if(isset($url)) {
+        if (filter_var($url, FILTER_VALIDATE_URL) === FALSE) {
+            echo 'Not a valid html!!!';
+        } else {
+            $pageCrawlerResult = crawl_page($url, 2);
 			
-		}
-		$links = array_unique($links);
-		foreach ($links as $link) {
-		echo '<span class="klasa">', $link, '</span>';
-		// w cssie dla klasa dać display block
-		}
-	}
-	
-?>	
+        }
+    }
+?>
 
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Crawler</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="header">Crawler</div>
+  	<div class="search">
+        <form action="" type="GET">
+            <div class="search-container">
+                <input type="text" class="search-input" name="url" value="<?php if(!empty($_GET['url'])){ echo $url; } ?>">
+            </div>
+            <div class="submit-container">
+                <input class="submit" type="submit" value="Crawl!">
+            </div>
+        </form>
+  	</div>
+    <div class="result">
+        <?php
+            echo $pageCrawlerResult;
+        ?>
+    </div>
+  </body>
 </html>
-
- 
